@@ -1,24 +1,58 @@
 import Logo from "../assets/Vinted_logo.png";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Header = () => {
+const Header = ({ search, setSearch }) => {
   return (
-    <header>
-      <div className="container">
-        <Link to={"/"}>
-          <img src={Logo} alt="logo vinted" />
-        </Link>
-        <div className="menu">
+    <>
+      <header>
+        <div className="container">
           <div>
-            <button>se connecter</button>
+            <Link to={"/"}>
+              <img src={Logo} alt="logo vinted" />
+            </Link>
           </div>
-          <div>
-            <button>s'inscrire</button>
-            <button>Vends tes articles</button>
+          <div className="research">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                alert(search);
+              }}
+            >
+              <input
+                id="research"
+                type="text"
+                placeholder="recherche des articles"
+                value={search}
+                onChange={(event) => {
+                  setSearch(event.target.value);
+                }}
+              />
+            </form>
+            <div className="filtre-button">
+              <FontAwesomeIcon icon="sliders" className="filtre-icon" />
+              FILTRES
+            </div>
+          </div>
+
+          <div className="menup-box">
+            <div className="menup1">
+              <button>s'inscrire</button>
+              <button>se connecter</button>
+            </div>
+            <div className="menup2">
+              <button>Vends tes articles</button>
+            </div>
           </div>
         </div>
+      </header>
+      <div className="container2">
+        <div className="filtre">
+          <FontAwesomeIcon icon="filter" className="filtre-icon" />
+          TRIER PAR PRIX :
+        </div>
       </div>
-    </header>
+    </>
   );
 };
 

@@ -5,10 +5,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Offer from "./pages/Offer";
 import Header from "./components/header";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSliders, faFilter } from "@fortawesome/free-solid-svg-icons";
+library.add(faSliders, faFilter);
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,14 +28,13 @@ function App() {
     };
     fetchData();
   }, []);
-  // console.log(data);
   return loading ? (
     <main>
       <p>Loading...</p>
     </main>
   ) : (
     <Router>
-      <Header />
+      <Header search={search} setSearch={setSearch} />
       <Routes>
         <Route path="/" element={<Home data={data} />} />
         <Route path="/Offer/:id" element={<Offer data={data} />} />
