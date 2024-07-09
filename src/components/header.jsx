@@ -2,7 +2,7 @@ import Logo from "../assets/Vinted_logo.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Header = ({ search, setSearch }) => {
+const Header = ({ search, setSearch, filter, setFilter }) => {
   return (
     <>
       <header>
@@ -29,7 +29,13 @@ const Header = ({ search, setSearch }) => {
                 }}
               />
             </form>
-            <div className="filtre-button">
+
+            <div
+              className="filtre-button"
+              onClick={() => {
+                setFilter(!filter);
+              }}
+            >
               <FontAwesomeIcon icon="sliders" className="filtre-icon" />
               FILTRES
             </div>
@@ -46,12 +52,14 @@ const Header = ({ search, setSearch }) => {
           </div>
         </div>
       </header>
-      <div className="container2">
-        <div className="filtre">
-          <FontAwesomeIcon icon="filter" className="filtre-icon" />
-          TRIER PAR PRIX :
+      {filter && (
+        <div className="container2">
+          <div className="filtre">
+            <FontAwesomeIcon icon="filter" className="filtre-icon" />
+            TRIER PAR PRIX :
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

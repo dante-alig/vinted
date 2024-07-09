@@ -13,6 +13,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,12 @@ function App() {
     </main>
   ) : (
     <Router>
-      <Header search={search} setSearch={setSearch} />
+      <Header
+        search={search}
+        setSearch={setSearch}
+        filter={filter}
+        setFilter={setFilter}
+      />
       <Routes>
         <Route path="/" element={<Home data={data} />} />
         <Route path="/Offer/:id" element={<Offer data={data} />} />

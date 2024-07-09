@@ -112,6 +112,7 @@ header img {
   top: 15px;
   right: 0px;
   height: 100%;
+  cursor: pointer;
 }
 
 .filtre p {
