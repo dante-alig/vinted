@@ -2,7 +2,6 @@ const Article = ({ data, id }) => {
   return (
     <div>
       {data.offers.map((tab) => {
-        console.log(tab);
         return (
           tab._id === id && (
             <div key={id} className="article-container">

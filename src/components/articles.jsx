@@ -1,5 +1,4 @@
 const Articles = ({ tab }) => {
-  console.log(tab.owner);
   return (
     <div className="articles">
       <div className="articles-avatar">

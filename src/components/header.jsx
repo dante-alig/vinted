@@ -1,14 +1,39 @@
 import Logo from "../assets/Vinted_logo.png";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Signup from "./signup";
+import Login from "./login";
 
 const Header = ({ search, setSearch, filter, setFilter }) => {
+  const [modalsignup, setModalsignup] = useState(false);
+  const [modalLogin, setModalLogin] = useState(false);
+  const [bgLock, setBgLock] = useState("");
+
+  useEffect(() => {
+    if (modalLogin || modalsignup) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modalLogin, modalsignup, bgLock]);
+
   return (
     <>
       <header>
         <div className="container">
           <div>
-            <Link to={"/"}>
+            <Link
+              to={"/"}
+              onClick={() => {
+                setModalLogin(false);
+                setModalsignup(false);
+              }}
+            >
               <img src={Logo} alt="logo vinted" />
             </Link>
           </div>
@@ -43,8 +68,26 @@ const Header = ({ search, setSearch, filter, setFilter }) => {
 
           <div className="menup-box">
             <div className="menup1">
-              <button>s'inscrire</button>
-              <button>se connecter</button>
+              <button
+                onClick={() => {
+                  setModalsignup(!modalsignup);
+                  setModalLogin(false);
+                  setBgLock();
+                }}
+              >
+                s'inscrire
+              </button>
+              {modalsignup && <Signup />}
+              <button
+                onClick={() => {
+                  setModalLogin(!modalLogin);
+                  setModalsignup(false);
+                  setBgLock();
+                }}
+              >
+                se connecter
+              </button>
+              {modalLogin && <Login />}
             </div>
             <div className="menup2">
               <button>Vends tes articles</button>
