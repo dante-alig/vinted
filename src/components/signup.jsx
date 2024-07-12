@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Api from "./api";
 
-const Signup = ({ modalsignup, setModalsignup }) => {
+const Signup = ({ modalsignup, setModalsignup, token, setToken }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,6 +76,8 @@ const Signup = ({ modalsignup, setModalsignup }) => {
           password={password}
           modalsignup={modalsignup}
           setModalsignup={setModalsignup}
+          token={token}
+          setToken={setToken}
         />
       </form>
     </div>

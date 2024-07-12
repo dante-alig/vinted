@@ -14,7 +14,10 @@ function App() {
   const [data, setData] = useState({});
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(false);
+  const [token, setToken] = useState("");
+  const [valueToken, setValueToken] = useState(false);
 
+  // -------------------GET DATA ARTICLES-------------------------
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,6 +32,34 @@ function App() {
     };
     fetchData();
   }, []);
+
+  // -------------------GET IDENTIFICATION-------------------------
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/token",
+          {
+            token,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setValueToken(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [token]);
+
+  // ------------------- RENDU-------------------------
+
   return loading ? (
     <main>
       <p>Loading...</p>
@@ -40,6 +71,10 @@ function App() {
         setSearch={setSearch}
         filter={filter}
         setFilter={setFilter}
+        token={token}
+        setToken={setToken}
+        valueToken={valueToken}
+        setValueToken={setValueToken}
       />
       <Routes>
         <Route path="/" element={<Home data={data} />} />

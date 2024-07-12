@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const Api = ({
@@ -8,8 +9,9 @@ const Api = ({
   password,
   modalsignup,
   setModalsignup,
+  token,
+  setToken,
 }) => {
-  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   const postData = async () => {
@@ -29,7 +31,7 @@ const Api = ({
         }
       );
 
-      setData(response.data);
+      setToken(response.data);
       setError(null);
     } catch (error) {
       console.error("There was an error!", error);
@@ -42,7 +44,8 @@ const Api = ({
       <button
         onClick={() => {
           postData();
-          setModalsignup(false);
+          setModalsignup(!modalsignup);
+          Cookies.set("token", token);
         }}
       >
         S'inscrire

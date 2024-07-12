@@ -4,12 +4,27 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Signup from "./signup";
 import Login from "./login";
+import Cookies from "js-cookie";
 
-const Header = ({ search, setSearch, filter, setFilter }) => {
+const Header = ({
+  search,
+  setSearch,
+  filter,
+  setFilter,
+  token,
+  setToken,
+  valueToken,
+  setValueToken,
+}) => {
   const [modalsignup, setModalsignup] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
   const [bgLock, setBgLock] = useState("");
 
+  console.log(Cookies.get("token"));
+  console.log(token);
+  console.log(valueToken);
+
+  // pour gérer la fenetre modal
   useEffect(() => {
     if (modalLogin || modalsignup) {
       document.body.style.overflow = "hidden";
@@ -69,18 +84,30 @@ const Header = ({ search, setSearch, filter, setFilter }) => {
           <div className="menup-box">
             <div className="menup1">
               <button
+                style={
+                  valueToken
+                    ? {
+                        backgroundColor: "#C2175B",
+                        color: "#ffffff",
+                        border: "none",
+                      }
+                    : {}
+                }
                 onClick={() => {
                   setModalsignup(!modalsignup);
                   setModalLogin(false);
                   setBgLock();
+                  setValueToken(false);
                 }}
               >
-                s'inscrire
+                {valueToken ? "Se déconnecter" : "S'inscrire"}
               </button>
               {modalsignup && (
                 <Signup
                   modalsignup={modalsignup}
                   setModalsignup={setModalsignup}
+                  token={token}
+                  setToken={setToken}
                 />
               )}
               <button
