@@ -65,7 +65,7 @@ const Header = ({ search, setSearch, filter, setFilter }) => {
               FILTRES
             </div>
           </div>
-
+          {/* ------------------------FENETRE MODEL--------------------------- */}
           <div className="menup-box">
             <div className="menup1">
               <button
@@ -77,7 +77,12 @@ const Header = ({ search, setSearch, filter, setFilter }) => {
               >
                 s'inscrire
               </button>
-              {modalsignup && <Signup />}
+              {modalsignup && (
+                <Signup
+                  modalsignup={modalsignup}
+                  setModalsignup={setModalsignup}
+                />
+              )}
               <button
                 onClick={() => {
                   setModalLogin(!modalLogin);

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Api from "./api";
 
-const Signup = () => {
+const Signup = ({ modalsignup, setModalsignup }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +12,7 @@ const Signup = () => {
         onSubmit={(event) => {
           event.preventDefault();
           if (name && email && password) {
-            setDisplay("form-display");
+            // setDisplay("form-display");
           } else {
             alert("vous devez remplir tout les champs");
           }
@@ -68,7 +69,14 @@ const Signup = () => {
           </p>
         </div>
 
-        <button>s'inscrire</button>
+        <Api
+          name={name}
+          email={email}
+          newsletter={checked}
+          password={password}
+          modalsignup={modalsignup}
+          setModalsignup={setModalsignup}
+        />
       </form>
     </div>
   );
