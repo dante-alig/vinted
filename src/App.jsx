@@ -16,8 +16,10 @@ function App() {
   const [filter, setFilter] = useState(false);
   const [token, setToken] = useState("");
   const [valueToken, setValueToken] = useState(false);
+  const [modalsignup, setModalsignup] = useState(false);
+  const [modalLogin, setModalLogin] = useState(false);
 
-  // -------------------GET DATA ARTICLES-------------------------
+  // -------------------APPEL API (pour récupérer les produits) -------------------------
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,9 +79,25 @@ function App() {
         setToken={setToken}
         valueToken={valueToken}
         setValueToken={setValueToken}
+        modalLogin={modalLogin}
+        setModalLogin={setModalLogin}
+        modalsignup={modalsignup}
+        setModalsignup={setModalsignup}
       />
       <Routes>
-        <Route path="/" element={<Home data={data} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              data={data}
+              modalLogin={modalLogin}
+              setModalLogin={setModalLogin}
+              modalsignup={modalsignup}
+              setModalsignup={setModalsignup}
+              valueToken={valueToken}
+            />
+          }
+        />
         <Route path="/Offer/:id" element={<Offer data={data} />} />
       </Routes>
     </Router>

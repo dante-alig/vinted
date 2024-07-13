@@ -15,16 +15,18 @@ const Header = ({
   setToken,
   valueToken,
   setValueToken,
+  modalLogin,
+  setModalLogin,
+  modalsignup,
+  setModalsignup,
 }) => {
-  const [modalsignup, setModalsignup] = useState(false);
-  const [modalLogin, setModalLogin] = useState(false);
   const [bgLock, setBgLock] = useState("");
 
   // console.log(Cookies.get("token"));
   // console.log("token >>>>>>", token);
   // console.log("valueToken>>>>", valueToken);
 
-  // pour gérer la fenetre modal
+  //etats pour gérer les fenetres modal
   useEffect(() => {
     if (modalLogin || modalsignup) {
       document.body.style.overflow = "hidden";
@@ -80,7 +82,7 @@ const Header = ({
               FILTRES
             </div>
           </div>
-          {/* ------------------------FENETRE MODEL--------------------------- */}
+          {/* ------------------------FENETRES MODEL--------------------------- */}
           <div className="menup-box">
             <div className="menup1">
               <button
@@ -100,6 +102,7 @@ const Header = ({
                     setBgLock();
                   } else {
                     setValueToken(false);
+                    Cookies.remove("token");
                   }
                 }}
               >

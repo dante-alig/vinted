@@ -2,13 +2,28 @@ import { Link } from "react-router-dom";
 import slide from "../images/screen.png";
 import Articles from "../components/articles";
 
-const Home = ({ data }) => {
+const Home = ({ data, modalLogin, setModalLogin, valueToken }) => {
   return (
     <>
       <div className="slider">
         <img src={slide} alt="" />
       </div>
       <div className="wrapper">
+        <div className="box-slider">
+          {!valueToken ? (
+            <h1>Prêts à faire du tri dans vos placards ?</h1>
+          ) : (
+            <h1>Bienvenue</h1>
+          )}
+          <button
+            onClick={() => {
+              setModalLogin(!modalLogin);
+            }}
+          >
+            {!valueToken ? "Connectez-vous d'abord" : "Commencez à vendre"}
+          </button>
+        </div>
+
         {data.offers.map((tab) => {
           return (
             <div key={tab._id}>
