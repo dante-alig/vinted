@@ -57,6 +57,8 @@ function App() {
     };
     fetchData();
   }, [token]);
+  console.log(valueToken);
+  console.log(token);
 
   // ------------------- RENDU-------------------------
 

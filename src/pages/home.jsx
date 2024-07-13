@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import slide from "../assets/screen.png";
+import slide from "../images/screen.png";
 import Articles from "../components/articles";
 
 const Home = ({ data }) => {

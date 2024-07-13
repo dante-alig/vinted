@@ -20,9 +20,9 @@ const Header = ({
   const [modalLogin, setModalLogin] = useState(false);
   const [bgLock, setBgLock] = useState("");
 
-  console.log(Cookies.get("token"));
-  console.log(token);
-  console.log(valueToken);
+  // console.log(Cookies.get("token"));
+  // console.log("token >>>>>>", token);
+  // console.log("valueToken>>>>", valueToken);
 
   // pour gérer la fenetre modal
   useEffect(() => {
@@ -94,10 +94,13 @@ const Header = ({
                     : {}
                 }
                 onClick={() => {
-                  setModalsignup(!modalsignup);
-                  setModalLogin(false);
-                  setBgLock();
-                  setValueToken(false);
+                  if (!valueToken) {
+                    setModalsignup(!modalsignup);
+                    setModalLogin(false);
+                    setBgLock();
+                  } else {
+                    setValueToken(false);
+                  }
                 }}
               >
                 {valueToken ? "Se déconnecter" : "S'inscrire"}
@@ -108,18 +111,31 @@ const Header = ({
                   setModalsignup={setModalsignup}
                   token={token}
                   setToken={setToken}
+                  valueToken={valueToken}
+                  setValueToken={setValueToken}
                 />
               )}
-              <button
-                onClick={() => {
-                  setModalLogin(!modalLogin);
-                  setModalsignup(false);
-                  setBgLock();
-                }}
-              >
-                se connecter
-              </button>
-              {modalLogin && <Login />}
+              {!valueToken && (
+                <button
+                  onClick={() => {
+                    setModalLogin(!modalLogin);
+                    setModalsignup(false);
+                    setBgLock();
+                  }}
+                >
+                  se connecter
+                </button>
+              )}
+              {modalLogin && (
+                <Login
+                  token={token}
+                  setToken={setToken}
+                  valueToken={valueToken}
+                  setValueToken={setValueToken}
+                  modalLogin={modalLogin}
+                  setModalLogin={setModalLogin}
+                />
+              )}
             </div>
             <div className="menup2">
               <button>Vends tes articles</button>

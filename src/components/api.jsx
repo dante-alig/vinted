@@ -11,8 +11,11 @@ const Api = ({
   setModalsignup,
   token,
   setToken,
+  setValueToken,
+  valueToken,
 }) => {
   const [error, setError] = useState(null);
+  const [errorStatut, setErrorStatut] = useState(false);
 
   const postData = async () => {
     try {
@@ -33,23 +36,27 @@ const Api = ({
 
       setToken(response.data);
       setError(null);
+      errorStatut(true);
     } catch (error) {
-      console.error("There was an error!", error);
-      setError(error.message || "An unexpected error occurred");
+      if (error.response && error.response.status === 400) {
+        console.log("Erreur 400:", error.response.data.message);
+      } else {
+        console.error("Erreur serveur ou autre:", error);
+      }
+    }
+  };
+
+  const handleButtonClick = async () => {
+    await postData();
+    if (name && email && password) {
+      setModalsignup(!modalsignup);
+      Cookies.set("token", token);
     }
   };
 
   return (
     <div>
-      <button
-        onClick={() => {
-          postData();
-          setModalsignup(!modalsignup);
-          Cookies.set("token", token);
-        }}
-      >
-        S'inscrire
-      </button>
+      <button onClick={handleButtonClick}>S'inscrire</button>
     </div>
   );
 };
