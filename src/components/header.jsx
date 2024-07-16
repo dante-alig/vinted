@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Signup from "./signup";
 import Login from "./login";
+import Rangestyle from "./Rangestyle";
 import Cookies from "js-cookie";
 
 const Header = ({
@@ -19,12 +20,18 @@ const Header = ({
   setModalLogin,
   modalsignup,
   setModalsignup,
+  title,
+  setTitle,
+  priceMin,
+  setPriceMin,
+  priceMax,
+  setPriceMax,
+  sortOrder,
+  setSortOrder,
 }) => {
   const [bgLock, setBgLock] = useState("");
-
-  // console.log(Cookies.get("token"));
-  // console.log("token >>>>>>", token);
-  // console.log("valueToken>>>>", valueToken);
+  const [buttonAsc, setButtonAsc] = useState(false);
+  const [buttonDesc, setBoutonDesc] = useState(false);
 
   //etats pour gérer les fenetres modal
   useEffect(() => {
@@ -58,7 +65,7 @@ const Header = ({
             <form
               onSubmit={(event) => {
                 event.preventDefault();
-                alert(search);
+                setTitle(search);
               }}
             >
               <input
@@ -68,6 +75,9 @@ const Header = ({
                 value={search}
                 onChange={(event) => {
                   setSearch(event.target.value);
+                  if (search.length > 0) {
+                    setTitle(search);
+                  }
                 }}
               />
             </form>
@@ -101,8 +111,8 @@ const Header = ({
                     setModalLogin(false);
                     setBgLock();
                   } else {
-                    setValueToken(false);
                     Cookies.remove("token");
+                    setValueToken(false);
                   }
                 }}
               >
@@ -146,11 +156,49 @@ const Header = ({
           </div>
         </div>
       </header>
+
+      {/* ------------------------FILTRES--------------------------- */}
       {filter && (
         <div className="container2">
           <div className="filtre">
             <FontAwesomeIcon icon="filter" className="filtre-icon" />
-            TRIER PAR PRIX :
+            <span> TRIER PAR :</span>
+            <button
+              style={{
+                backgroundColor: buttonAsc ? "#09b0ba" : "",
+                color: buttonAsc ? "white" : "",
+              }}
+              onClick={() => {
+                setSortOrder(!buttonAsc ? "price-asc" : "");
+                console.log("valeur de ", buttonAsc);
+                setButtonAsc(!buttonAsc);
+              }}
+            >
+              {" "}
+              <FontAwesomeIcon icon="sort-up" className="sort-icon-up" />
+              prix croissant
+            </button>
+            <button
+              style={{
+                backgroundColor: buttonDesc ? "#09b0ba" : "",
+                color: buttonDesc ? "white" : "",
+              }}
+              onClick={() => {
+                setSortOrder(!buttonDesc ? "price-desc" : "");
+                console.log("valeur de 2 ", buttonDesc);
+                setBoutonDesc(!buttonDesc);
+              }}
+            >
+              <FontAwesomeIcon icon="sort-down" className="sort-icon-down" />
+              prix décroissant
+            </button>
+            <span className="filter-selec">COMPRIS ENTRE : </span>
+            <Rangestyle
+              priceMin={priceMin}
+              setPriceMin={setPriceMin}
+              priceMax={priceMax}
+              setPriceMax={setPriceMax}
+            />
           </div>
         </div>
       )}

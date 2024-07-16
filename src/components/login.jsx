@@ -2,7 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const Login = ({ modalLogin, setModalLogin, token, setToken }) => {
+const Login = ({
+  modalLogin,
+  setModalLogin,
+  token,
+  setToken,
+  valueToken,
+  setValueToken,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorStatut, setErrorStatut] = useState("");
@@ -44,6 +51,7 @@ const Login = ({ modalLogin, setModalLogin, token, setToken }) => {
       setModalLogin(!modalLogin);
       // console.log("2>>>", errorStatut);
       Cookies.set("token", token);
+      setValueToken(true);
     }
   };
 
