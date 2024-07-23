@@ -6,14 +6,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Offer from "./pages/Offer";
 import Header from "./components/header";
+import Publish from "./pages/publish";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSliders,
   faFilter,
   faSortUp,
   faSortDown,
+  faArrowUpFromBracket,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faSliders, faFilter, faSortUp, faSortDown);
+library.add(
+  faSliders,
+  faFilter,
+  faSortUp,
+  faSortDown,
+  faArrowUpFromBracket,
+  faImage
+);
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -47,9 +57,10 @@ function App() {
           params.append("sort", sortOrder);
         }
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offers?${params.toString()}`
+          `http://localhost:4000/offers/all?${params.toString()}`
         );
         setData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -82,8 +93,6 @@ function App() {
     };
     fetchData();
   }, [token]);
-  console.log("la valeur du token est à ", valueToken);
-  console.log("le token est ", token);
 
   // ------------------- RENDU-------------------------
 
@@ -130,6 +139,10 @@ function App() {
           }
         />
         <Route path="/Offer/:id" element={<Offer data={data} />} />
+        <Route
+          path="/publish"
+          element={<Publish token={token} setToken={setToken} />}
+        />
       </Routes>
     </Router>
   );

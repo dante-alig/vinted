@@ -151,7 +151,13 @@ const Header = ({
               )}
             </div>
             <div className="menup2">
-              <button>Vends tes articles</button>
+              <button
+                onClick={() => {
+                  !token && setModalLogin(!modalLogin);
+                }}
+              >
+                <Link to={"/publish"}>Vends tes articles</Link>
+              </button>
             </div>
           </div>
         </div>
@@ -170,8 +176,8 @@ const Header = ({
               }}
               onClick={() => {
                 setSortOrder(!buttonAsc ? "price-asc" : "");
-                console.log("valeur de ", buttonAsc);
                 setButtonAsc(!buttonAsc);
+                setButtonDesc(false);
               }}
             >
               {" "}
@@ -185,8 +191,8 @@ const Header = ({
               }}
               onClick={() => {
                 setSortOrder(!buttonDesc ? "price-desc" : "");
-                console.log("valeur de 2 ", buttonDesc);
                 setBoutonDesc(!buttonDesc);
+                setButtonAsc(false);
               }}
             >
               <FontAwesomeIcon icon="sort-down" className="sort-icon-down" />

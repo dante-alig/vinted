@@ -7,6 +7,7 @@ const Api = ({
   email,
   newsletter,
   password,
+  avatar,
   modalsignup,
   setModalsignup,
   token,
@@ -19,17 +20,19 @@ const Api = ({
 
   const postData = async () => {
     try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("newsletter", newsletter);
+      formData.append("password", password);
+      formData.append("avatar", avatar);
+
       const response = await axios.post(
         "http://localhost:3000/user/signup",
-        {
-          name,
-          email,
-          newsletter,
-          password,
-        },
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -56,7 +59,17 @@ const Api = ({
 
   return (
     <div>
-      <button onClick={handleButtonClick}>S'inscrire</button>
+      <button
+        onClick={() => {
+          if (name && email && password && avatar) {
+            postData();
+            setModalsignup(!modalsignup);
+            Cookies.set("token", token);
+          }
+        }}
+      >
+        S'inscrire
+      </button>
     </div>
   );
 };

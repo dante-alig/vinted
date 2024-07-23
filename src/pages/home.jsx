@@ -24,7 +24,7 @@ const Home = ({ data, modalLogin, setModalLogin, valueToken }) => {
           </button>
         </div>
 
-        {data.offers.map((tab) => {
+        {data.map((tab) => {
           return (
             <div key={tab._id}>
               <Link to={`/Offer/${tab._id}`}>

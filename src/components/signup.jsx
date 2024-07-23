@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Api from "./api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Signup = ({
   modalsignup,
@@ -13,13 +14,14 @@ const Signup = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
+  const [avatar, setAvatar] = useState("");
   return (
     <div className="sign-container">
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          if (name && email && password) {
-            // setDisplay("form-display");
+          if (name && email && password && avatar) {
+            console.log(name, email, password, avatar);
           } else {
             alert("vous devez remplir tout les champs");
           }
@@ -59,6 +61,31 @@ const Signup = ({
             }}
           />
         </div>
+        <div className={avatar ? "file-button-up" : "file-button"}>
+          <label htmlFor="avatar">
+            <div className="file-upload">
+              {avatar ? (
+                <img src={URL.createObjectURL(avatar)} alt="Avatar" />
+              ) : (
+                <FontAwesomeIcon
+                  icon="arrow-up-from-bracket"
+                  className="file-icon"
+                />
+              )}
+            </div>
+            <div className={avatar ? "file-text-up" : "file-text"}>
+              {avatar ? "ta photo est validée" : "choisie ta photo de profil"}
+            </div>
+          </label>
+          <input
+            id="avatar"
+            type="file"
+            onChange={(event) => {
+              setAvatar(event.target.files[0]);
+              console.log(event.target.files[0]);
+            }}
+          />
+        </div>
         <div className="checkbox-style">
           <input
             id="checkbox"
@@ -81,6 +108,7 @@ const Signup = ({
           email={email}
           newsletter={checked}
           password={password}
+          avatar={avatar}
           modalsignup={modalsignup}
           setModalsignup={setModalsignup}
           token={token}
