@@ -26,7 +26,7 @@ const Api = ({
       formData.append("avatar", avatar);
 
       const response = await axios.post(
-        "http://localhost:3000/user/signup",
+        "https://site--vinted-back-p1--dqd24mcv82s5.code.run/user/signup",
         formData,
         {
           headers: {

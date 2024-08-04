@@ -60,7 +60,7 @@ function App() {
           params.append("sort", sortOrder);
         }
         const response = await axios.get(
-          `http://localhost:4000/offers/all?${params.toString()}`
+          `https://site--vinted-back-p2--dqd24mcv82s5.code.run/offers/all?${params.toString()}`
         );
         setData(response.data);
         console.log(params.toString());
@@ -78,7 +78,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3000/token",
+          "https://site--vinted-back-p1--dqd24mcv82s5.code.run/token",
           {
             token,
           },
