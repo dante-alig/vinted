@@ -16,6 +16,7 @@ import {
   faArrowUpFromBracket,
   faImage,
 } from "@fortawesome/free-solid-svg-icons";
+import Payment from "./pages/payment";
 library.add(
   faSliders,
   faFilter,
@@ -38,9 +39,11 @@ function App() {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+  const [payment, setPayment] = useState("");
 
   // -------------------APPEL API (pour récupérer les produits) -------------------------
   useEffect(() => {
+    console.log(title, priceMax, priceMin, sortOrder);
     const fetchData = async () => {
       try {
         const params = new URLSearchParams();
@@ -60,7 +63,7 @@ function App() {
           `http://localhost:4000/offers/all?${params.toString()}`
         );
         setData(response.data);
-        console.log(response.data);
+        console.log(params.toString());
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -138,10 +141,29 @@ function App() {
             />
           }
         />
-        <Route path="/Offer/:id" element={<Offer data={data} />} />
+        <Route
+          path="/Offer/:id"
+          element={
+            <Offer
+              token={token}
+              data={data}
+              modalLogin={modalLogin}
+              setModalLogin={setModalLogin}
+              modalsignup={modalsignup}
+              setModalsignup={setModalsignup}
+              valueToken={valueToken}
+              payment={payment}
+              setPayment={setPayment}
+            />
+          }
+        />
         <Route
           path="/publish"
           element={<Publish token={token} setToken={setToken} />}
+        />
+        <Route
+          path="/payment"
+          element={<Payment token={token} payment={payment} />}
         />
       </Routes>
     </Router>

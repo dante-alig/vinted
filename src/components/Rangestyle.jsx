@@ -5,7 +5,7 @@ const Rangestyle = ({ priceMin, setPriceMin, priceMax, setPriceMax }) => {
   const [values, setValues] = useState([20, 80]);
   const STEP = 1;
   const MIN = 0;
-  const MAX = 300;
+  const MAX = 1000;
 
   return (
     <>
@@ -50,30 +50,34 @@ const Rangestyle = ({ priceMin, setPriceMin, priceMax, setPriceMax }) => {
               </div>
             </div>
           )}
-          renderThumb={({ props, isDragged }) => (
-            <div
-              {...props}
-              style={{
-                ...props.style,
-                height: "20px",
-                width: "20px",
-                borderRadius: "50px",
-                backgroundColor: "#FFF",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0px 2px 6px #AAA",
-              }}
-            >
+          renderThumb={({ props, isDragged }) => {
+            const { key, ...restProps } = props; // Extraire la clé
+            return (
               <div
+                {...restProps} // Propager le reste des props
+                key={key} // Passer la clé directement
                 style={{
-                  height: "0px",
-                  width: "2px",
-                  backgroundColor: isDragged ? "#000000" : "#CCC",
+                  ...restProps.style,
+                  height: "20px",
+                  width: "20px",
+                  borderRadius: "50px",
+                  backgroundColor: "#FFF",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  boxShadow: "0px 2px 6px #AAA",
                 }}
-              />
-            </div>
-          )}
+              >
+                <div
+                  style={{
+                    height: "0px",
+                    width: "2px",
+                    backgroundColor: isDragged ? "#000000" : "#CCC",
+                  }}
+                />
+              </div>
+            );
+          }}
         />
       </div>
       <button className="filtre-value">

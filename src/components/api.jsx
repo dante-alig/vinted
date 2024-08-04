@@ -12,8 +12,6 @@ const Api = ({
   setModalsignup,
   token,
   setToken,
-  setValueToken,
-  valueToken,
 }) => {
   const [error, setError] = useState(null);
   const [errorStatut, setErrorStatut] = useState(false);
@@ -49,13 +47,13 @@ const Api = ({
     }
   };
 
-  const handleButtonClick = async () => {
-    await postData();
-    if (name && email && password) {
-      setModalsignup(!modalsignup);
-      Cookies.set("token", token);
-    }
-  };
+  // const handleButtonClick = async () => {
+  //   await postData();
+  //   if (name && email && password) {
+  //     setModalsignup(!modalsignup);
+  //     Cookies.set("token", token);
+  //   }
+  // };
 
   return (
     <div>

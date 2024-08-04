@@ -31,7 +31,7 @@ const Header = ({
 }) => {
   const [bgLock, setBgLock] = useState("");
   const [buttonAsc, setButtonAsc] = useState(false);
-  const [buttonDesc, setBoutonDesc] = useState(false);
+  const [buttonDesc, setButtonDesc] = useState(false);
 
   //etats pour gérer les fenetres modal
   useEffect(() => {
@@ -191,7 +191,7 @@ const Header = ({
               }}
               onClick={() => {
                 setSortOrder(!buttonDesc ? "price-desc" : "");
-                setBoutonDesc(!buttonDesc);
+                setButtonDesc(!buttonDesc);
                 setButtonAsc(false);
               }}
             >

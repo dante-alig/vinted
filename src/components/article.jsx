@@ -1,7 +1,21 @@
-const Article = ({ data, id }) => {
+import { useNavigate } from "react-router-dom";
+
+const Article = ({
+  data,
+  id,
+  token,
+  valueToken,
+  modalsignup,
+  setModalsignup,
+  setModalLogin,
+  setBgLock,
+  payment,
+  setPayment,
+}) => {
+  const navigate = useNavigate();
   return (
     <div>
-      {data.offers.map((tab) => {
+      {data.map((tab) => {
         return (
           tab._id === id && (
             <div key={id} className="article-container">
@@ -47,7 +61,24 @@ const Article = ({ data, id }) => {
                   )}
                 </div>
                 <div className="article-button">
-                  <button>acheter</button>
+                  <button
+                    onClick={() => {
+                      if (!token) {
+                        setModalsignup(!modalsignup);
+                        setModalLogin(false);
+                        setBgLock();
+                        navigate("/");
+                      } else {
+                        navigate("/payment");
+                        setPayment({
+                          title: tab.product_name,
+                          price: tab.product_price,
+                        });
+                      }
+                    }}
+                  >
+                    acheter
+                  </button>
                 </div>
               </div>
             </div>
