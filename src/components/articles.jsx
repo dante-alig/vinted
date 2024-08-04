@@ -1,4 +1,5 @@
 const Articles = ({ tab }) => {
+  console.log(tab);
   return (
     <div className="articles">
       <div className="articles-avatar">

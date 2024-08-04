@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Publish = ({ token }) => {
+const Publish = ({ token, setRefresh }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -52,6 +52,7 @@ const Publish = ({ token }) => {
             handleSubmit();
             console.log("envois effecté");
             navigate("/");
+            setRefresh(true);
           } else {
             alert("Vous devez remplir tous les champs");
           }

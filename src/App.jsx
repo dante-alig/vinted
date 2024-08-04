@@ -40,6 +40,7 @@ function App() {
   const [priceMax, setPriceMax] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [payment, setPayment] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
   // -------------------APPEL API (pour récupérer les produits) -------------------------
   useEffect(() => {
@@ -70,7 +71,9 @@ function App() {
       setLoading(false);
     };
     fetchData();
-  }, [title, priceMin, priceMax, sortOrder]);
+  }, [title, priceMin, priceMax, sortOrder, refresh]);
+
+  console.log("refresh>>>>>", refresh);
 
   // -------------------GET IDENTIFICATION-------------------------
 
@@ -159,7 +162,13 @@ function App() {
         />
         <Route
           path="/publish"
-          element={<Publish token={token} setToken={setToken} />}
+          element={
+            <Publish
+              token={token}
+              setToken={setToken}
+              setRefresh={setRefresh}
+            />
+          }
         />
         <Route
           path="/payment"

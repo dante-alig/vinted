@@ -31,7 +31,7 @@ const Login = ({
         }
       );
 
-      setErrorStatut("ok");
+      setErrorStatut("connexion réussie avec succès");
       setToken(response.data.token);
       console.log(response.data.token);
     } catch (error) {
@@ -44,22 +44,15 @@ const Login = ({
     }
   };
 
-  const valid = async () => {
-    await verifData();
-    // console.log("1>>>", errorStatut);
-    if (errorStatut === "ok") {
-      setModalLogin(!modalLogin);
-      // console.log("2>>>", errorStatut);
-      Cookies.set("token", token);
-      setValueToken(true);
-    }
-  };
-
   return (
     <div className="sign-container">
       <form
         onSubmit={(event) => {
           event.preventDefault();
+          verifData();
+          setModalLogin(!modalLogin);
+          Cookies.set("token", token);
+          setValueToken(true);
         }}
       >
         <h2>Se connecter</h2>
@@ -88,7 +81,7 @@ const Login = ({
 
         <p className="error">{errorStatut}</p>
 
-        <button onClick={valid}>Se connecter</button>
+        <button type="submit">Se connecter</button>
       </form>
     </div>
   );
